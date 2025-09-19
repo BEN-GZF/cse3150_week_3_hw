@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cstring>  // strcpy, strlen
+#include <cstring>  
 
 void addStudent(char* name, double gpa, char* names[], double gpas[], int& size, int capacity);
 void updateGPA(double* gpaPtr, double newGpa);
@@ -62,8 +62,8 @@ int main(int argc, char* argv[]) {
                 try {
                     addStudent(c, g, names, gpas, size, capacity);
                 } catch (const char* msg) {
-                    std::cout << msg << std::endl;
-                    delete[] c; // 失败时回收
+                    std::cout << "List full" << std::endl;
+                    delete[] c;
                 }
                 break;
             }
@@ -87,10 +87,10 @@ int main(int argc, char* argv[]) {
             case 4: {
                 try {
                     double avg = averageGPA(gpas, size);
-                    std::cout << "Average=" << avg
+                    std::cout << "Average GPA:" << avg
                               << " rounded=" << static_cast<int>(avg) << std::endl;
                 } catch (const char* msg) {
-                    std::cout << msg << std::endl;
+                    std::cout << "No students" << std::endl;
                 }
                 break;
             }
@@ -104,7 +104,6 @@ int main(int argc, char* argv[]) {
         }
     } while (choice != 5);
 
-    // 释放内存
     for (int i = 0; i < size; ++i) delete[] names[i];
     delete[] names;
     delete[] gpas;
